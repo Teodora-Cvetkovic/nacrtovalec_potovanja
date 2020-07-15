@@ -4,7 +4,12 @@
 
 ## Namestitev in zagon
 
-Za zagon programa potrebujete nameščen **Python**. Da program zaženete, odprite datoteko **Moje_potovanje.py**, potem pa naslov vpišete v brskalnik.
+Za zagon programa potrebujete nameščen **Python**. 
+
+V mapi, v kateri se nahaja program, naredite novo prazno mapo z imenom **uporabniki**. V njej se bodo shranjevali podatki o uporabnikih.
+
+Da program zaženete, odprite datoteko **Moje_potovanje.py**, potem pa naslov vpišete v brskalnik.
+
 Drug način: zaženete **command prompt**, vpišete `cd`, potem pa pot do mape, v kateri se nahaja program. Potem napišite `py Moje_potovanje.py`. Naslov, ki se prikaže, vpišite v brskalnik.
 
 ## Registracija in prijava
