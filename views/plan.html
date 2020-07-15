@@ -1,0 +1,102 @@
+% rebase('base.html', izbrani_zavihek='planiranje')
+
+<div class="tile is-ancestor">
+    <div class="tile is-4 is-vertical is-parent">
+      <div class="tile is-child box">
+        <p class="title">Planirajte svoja potovanja</p>
+        <p>Tukaj lahko izplanirate nasplednje potovanje. V primenrno polje vpišite mesto, državu, datum odhoda, datum vrnitve in budzet, ki da planirate porabiti. Plan se bo pojavil v tabeli desno.</p>
+        <p>Če želite obrisati potovanje, ki že obstaja v tabeli, v polje <i>Obrišite plan</i> vpišite planirani datum odhoda.</p>
+        <p>Lahko tudi premaknete planirano potovanje v evidenco potovanja, če ste se vrnili s tega potovanja. V polje <i>Premaknite v evidenco</i> vpišite planirani datum odhoda.</p>
+      </div>
+      <div class="tile is-child box">
+        <p class="title">Naredite plan</p>
+        <form action="/dodaj-potovanje/" method="POST">
+            <div class="field">
+                <label for="mesto"><i class="fas fa-map-marker-alt"></i></label>
+                <input class="input" type="text" placeholder="Mesto" name="mesto">
+            </div>
+            <div class="field">
+                <label for="drzava"><i class="far fa-flag"></i></label>
+                <input class="input" type="text" placeholder="Država" name="drzava">
+            </div>
+            <div class="field">
+                <label for="datum_od"><i class="far fa-calendar-alt"></i></label>
+                <input class="input" type="date" placeholder="Datum odhoda" name="datum_od">
+            </div>
+            <div class="field">
+                <label for="datum_do"><i class="far fa-calendar-alt"></i></label>
+                <input class="input" type="date" placeholder="Datum vrnitve" name="datum_do">
+            </div>
+            <div class="field">
+                <label for="budzet"><i class="fas fa-money-check-alt"></i></label>
+                <input class="input" type="number" placeholder="Denar" name="budzet" value="0" min="0">
+            </div>
+            <div class="control">
+                <button class="button is-info">Dodaj plan</button>
+            </div>
+        </form>
+      </div>
+      <div class="tile is-child box">
+        <p class="title">Obrišite plan</p>
+        <form action="/obrisi-potovanje/" method="POST">
+            <div class="field">
+                <label for="datum_od"><i class="far fa-calendar-alt"></i></label>
+                <input class="input" type="date" placeholder="Datum odhoda" name="polje_od">
+            </div>
+            <div class="control">
+                <button class="button is-info">Obriši plan</button>
+            </div>
+        </form>
+      </div>
+      <div class="tile is-child box">
+        <p class="title">Premaknite plan v evidenco</p>
+        <form action="/premakni-potovanje/" method="POST">
+            <div class="field">
+                <label for="datum_od"><i class="far fa-calendar-alt"></i></label>
+                <input class="input" type="date" placeholder="Datum odhoda" name="premakni_od">
+            </div>
+            <div class="control">
+                <button class="button is-info">Premakni plan</button>
+            </div>
+        </form>
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <div class="tile is-child box">
+        <p class="title">Planirana potovanja</p>
+        <table class="table is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-map-marker-alt"></i> Mesto</th>
+                    <th><i class="far fa-flag"></i> Država</th>
+                    <th><i class="far fa-calendar-alt"></i> Datum odhoda</th>
+                    <th><i class="far fa-calendar-alt"></i> Datum vrnitve</th>
+                    <th><i class="fas fa-money-check-alt"></i> Planirani budžet</th>
+                </tr>
+            </thead>
+            <tbody>
+                % for pot in potovanje.potovanja:
+                <tr>
+                    <td>{{pot[0]}}</td>
+                    <td>{{pot[1]}}</td>   
+                    <td>{{pot[2]}}</td>
+                    <td>{{pot[3]}}</td>
+                    <td style="text-align: right">{{pot[4]}} €</td>
+                </tr>
+                % end
+                <tr>
+                    <td colspan="2"><strong>Ukupan planirani budžet</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right">
+                        % budzet = potovanje.planiran_budzet_ukupno()
+                        {{budzet}} €
+                        % end
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+  

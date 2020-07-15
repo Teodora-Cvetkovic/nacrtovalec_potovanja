@@ -1,0 +1,121 @@
+% rebase('base.html', izbrani_zavihek='zelje')
+
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">Kje želim potovati?</p>
+        <p>Vpišite kje želite potovati in naredite svoj seznam želja. V primerna polja vpišite mesto in državo.</p>
+        <p>Če ste bili na potovanju iz seznama želja, lahko tisto željo obrišete. V polje <i>Obrišite željo</i> vpišite mesto.</p>
+        <p>Na tej strani tudi lahko dodate najljubše lokacije, ki ste jih že obiskali. V primerna polja vpišite mesto in državo. Seveda, lahko obrišete lokacijo iz seznama najljubših lokacij.</p>
+      </article>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">Dodajte željeno destinacijo</p>
+        <form action="/dodaj-v-seznam-zelja/" method="POST">
+            <div class="field">
+                <label for="mesto"><i class="fas fa-map-marker-alt"></i></label>
+                <input class="input" type="text" placeholder="Mesto" name="mesto">
+            </div>
+            <div class="field">
+                <label for="drzava"><i class="far fa-flag"></i></label>
+                <input class="input" type="text" placeholder="Država" name="drzava">
+            </div>
+            <div class="control">
+                <button class="button is-info">Dodaj željo</button>
+            </div>
+        </form>
+      </article>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">Dodajte najljubšo lokacijo</p>
+        <form action="/dodaj-najljubso-lokacijo/" method="POST">
+            <div class="field">
+                % include('_izberi_mesto.html', name='mesto_lj', oznaka='Mesto', icon='fas fa-map-marker-alt')
+            </div>
+            <div class="field">
+              % include('_izberi_drzavo.html', name='drzava_lj', oznaka='Drzava', icon='far fa-flag')
+          </div>
+            <div class="control">
+                <button class="button is-info">Dodaj lokacijo</button>
+            </div>
+        </form>
+      </article>
+    </div>
+    <div class="tile is-parent is-vertical">
+      <article class="tile is-child box">
+        <form action="/obrisi-zeljo/" method="POST">
+            <div class="field">
+                <p class="title">Obrišite željo</p>
+                % include('_obrisi_zeljo.html', name='z_mesto', oznaka='Želja')
+            </div>
+            <div class="control">
+                <button class="button is-info">Obriši željo</button>
+            </div>
+        </form>
+      </article>
+      <article class="tile is-child box">
+        <form action="/obrisi-najljubso-lokacijo/" method="POST">
+            <div class="field">
+                <p class="title">Obrišite lokacijo</p>
+                % include('_obrisi_lokacijo.html', name='l_mesto', oznaka='Lokacija')
+            </div>
+            <div class="control">
+                <button class="button is-info">Obriši lokacijo</button>
+            </div>
+        </form>
+      </article>
+    </div>
+</div>
+  
+<div class="tile is-ancestor">
+    <div class="tile is-vertical">
+      <div class="tile">
+        <div class="tile is-parent">
+          <article class="tile is-child box">
+            <p class="title">Seznam želja</p>
+            <table class="table is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-map-marker-alt"></i> Mesto</th>
+                        <th><i class="far fa-flag"></i> Država</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for zelja in potovanje.seznam_zelja:
+                    <tr>
+                        <td>{{zelja[0]}}</td>
+                        <td>{{zelja[1]}}</td>
+                    </tr>
+                    % end
+                </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </div>
+    <div class="tile">
+        <div class="tile is-parent">
+          <article class="tile is-child box">
+            <p class="title">Najljubše lokacije</p>
+            <table class="table is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-map-marker-alt"></i> Mesto</th>
+                        <th><i class="far fa-flag"></i> Država</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for lokacija in potovanje.najljubse_lokacije:
+                    <tr>
+                        <td>{{lokacija[0]}}</td>
+                        <td>{{lokacija[1]}}</td>
+                    </tr>
+                    % end
+                </tbody>
+            </table>
+          </article>
+        </div>
+    </div>
+</div>

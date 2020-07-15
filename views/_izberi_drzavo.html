@@ -1,0 +1,17 @@
+<div class="control has-icons-left">
+    <div class="select is-fullwidth is-small">
+      <select name="{{name}}">
+        % if defined('oznaka'):
+          <option disabled selected>{{oznaka}}</option>
+        % end
+        % for lokacija in potovanje.ze_obiskane_lokacije:
+          <option value="{{lokacija[1]}}">
+            {{lokacija[1]}}
+          </option>
+        % end
+      </select>
+    </div>
+    <span class="icon is-small is-left">
+        <i class="{{icon}}"></i>
+    </span>
+</div>

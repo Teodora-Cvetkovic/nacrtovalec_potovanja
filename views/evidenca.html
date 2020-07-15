@@ -1,0 +1,91 @@
+% rebase('base.html', izbrani_zavihek='evidenca')
+% import model
+
+
+<div class="tile is-ancestor">
+    <div class="tile is-4 is-vertical is-parent">
+      <div class="tile is-child box">
+        <p class="title">Poglejte, kje ste že potovali</p>
+        <p>Tukaj lahko vpišete, kje ste že bili. V primenrno polje vpišite mesto, državu, datum odhoda, datum vrnitve in budzet, ki da planirate porabiti. Plan se bo pojavil v tabeli desno.</p>
+        <p>Če želite obrisati potovanje iz evidence, ki že obstaja v tabeli, v polje <i>Obriši potovanje</i> vpišite planirani datum odhoda.</p>
+      </div>
+      <div class="tile is-child box">
+        <p class="title">Vpišite potovanje</p>
+        <form action="/dodaj-v-evidenco/" method="POST">
+            <div class="field">
+                <label for="mesto"><i class="fas fa-map-marker-alt"></i></label>
+                <input class="input" type="text" placeholder="Mesto" name="mesto">
+            </div>
+            <div class="field">
+                <label for="drzava"><i class="far fa-flag"></i></label>
+                <input class="input" type="text" placeholder="Država" name="drzava">
+            </div>
+            <div class="field">
+                <label for="datum_od"><i class="far fa-calendar-alt"></i></label>
+                <input class="input" type="date" placeholder="Datum odhoda" name="datum_od">
+            </div>
+            <div class="field">
+                <label for="datum_do"><i class="far fa-calendar-alt"></i></label>
+                <input class="input" type="date" placeholder="Datum vrnitve" name="datum_do">
+            </div>
+            <div class="field">
+                <label for="budzet"><i class="fas fa-money-check-alt"></i></label>
+                <input class="input" type="number" placeholder="Denar" name="budzet" value="0" min="0">
+            </div>
+            <div class="control">
+                <button class="button is-info">Dodaj potovanje</button>
+            </div>
+        </form>
+      </div>
+      <div class="tile is-child box">
+        <p class="title">Obrišite potovanje</p>
+        <form action="/obrisi-evidenco/" method="POST">
+            <div class="field">
+                <label for="datum_od"><i class="far fa-calendar-alt"></i></label>
+                <input class="input" type="date" placeholder="Datum odhoda" name="polje_od">
+            </div>
+            <div class="control">
+                <button class="button is-info">Obriši potovanje</button>
+            </div>
+        </form>
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <div class="tile is-child box">
+        <p class="title">Evidenca potovanjih</p>
+        <table class="table is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-map-marker-alt"></i> Mesto</th>
+                    <th><i class="far fa-flag"></i> Država</th>
+                    <th><i class="far fa-calendar-alt"></i> Datum odgoda</th>
+                    <th><i class="far fa-calendar-alt"></i> Datum vrnitve</th>
+                    <th><i class="fas fa-money-check-alt"></i> Porabljeni denar</th>
+                </tr>
+            </thead>
+            <tbody>
+                % for obisk in potovanje.ze_obiskano:
+                <tr>
+                    <td>{{obisk[0]}}</td>
+                    <td>{{obisk[1]}}</td>   
+                    <td>{{obisk[2]}}</td>
+                    <td>{{obisk[3]}}</td>
+                    <td style="text-align: right">{{obisk[4]}} €</td>
+                </tr>
+                % end
+                <tr>
+                    <td colspan="2"><strong>Ukupan porabljeni budžet</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right">
+                        % budzet = potovanje.ukupno_porabljeno()
+                        {{budzet}} €
+                        % end
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+  
