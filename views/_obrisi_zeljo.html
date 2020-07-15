@@ -1,0 +1,18 @@
+<div class="control has-icons-left">
+    <div class="select is-fullwidth is-small">
+      <select name="{{name}}">
+        % if defined('oznaka'):
+          <option disabled selected>{{oznaka}}</option>
+        % end
+        % for zelja in potovanje.seznam_zelja:
+          <option value="{{zelja[0]}}">
+            {{zelja[0]}}
+          </option>
+        % end
+      </select>
+    </div>
+    <span class="icon is-small is-left">
+        <i class="fas fa-globe-africa"></i>
+    </span>
+</div>
+  
